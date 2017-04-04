@@ -16,7 +16,7 @@ Some files in here belong to their respective authors.
   https://www.microsoft.com/en-us/download/details.aspx?id=48145</dd>
 
   <dt>Linux Requirement</dt>
-  <dd>###### Requirements Glibc Version 2.17+ Centos7+ / Debian 8+ / Ubuntu 14.10+
+  <dd>Requirements Glibc Version 2.17+ Centos7+ / Debian 8+ / Ubuntu 14.10+
   
   Deb Package System
   
