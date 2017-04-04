@@ -17,20 +17,10 @@ ExileServerRconSessionID = "";
 try 
 {
 	_result = "extDB3" callExtension "9:VERSION";
-	if (_result isEqualTo "") then
+	format ["Installed extDB3 version: %1", _result] call ExileServer_util_log;
+	if ((parseNumber _result) < 1.027) then
 	{
-		throw "Unable to locate extDB2 extension!";
-	};
-	if (parseNumber _result < 69) then
-	{
-		throw "Update extDB2 to version 69 or later";
-	};
-	format ["Installed extDB2 version: %1", _result] call ExileServer_util_log;
-	_result = call compile ("extDB3" callExtension "9:LOCK_STATUS") select 0;
-	if (_result isEqualTo 1) then
-	{
-		_error_locked = true;
-		throw "Error extDB2 is already setup & locked !!!";
+		throw format ["Error Required extDB3 Version 1.027 or higher: %1", _result]; 
 	};
 	_result = call compile ("extDB3" callExtension "9:ADD_DATABASE:exile");
 	if (_result select 0 isEqualTo 0) then
@@ -38,8 +28,8 @@ try
 		throw format ["Could not add database: %1", _result]; 
 	};
 	"Connected to database!" call ExileServer_util_log;
-	ExileServerDatabaseSessionId = str(round(random(999999)));
-	_result = call compile ("extDB3" callExtension format["9:ADD_DATABASE_PROTOCOL:exile:SQL_CUSTOM_V2:%1:exile", ExileServerDatabaseSessionId]);
+	ExileServerDatabaseSessionId = "SQL"; //str(round(random(999999)));
+	_result = call compile ("extDB3" callExtension "9:ADD_DATABASE_PROTOCOL:exile:SQL_CUSTOM:SQL:exile.ini");
 	if ((_result select 0) isEqualTo 0) then
 	{
 		throw format ["Failed to initialize database protocol: %1", _result]; 
@@ -57,14 +47,14 @@ catch
 	if (!_error_locked) then
 	{
 		"MySQL connection error!" call ExileServer_util_log;
-		"Please have a look at @ExileServer/extDB/logs/ to find out what went wrong." call ExileServer_util_log;
+		"Please have a look at @extDB3/logs/ to find out what went wrong." call ExileServer_util_log;
 		format ["MySQL Error: %1", _exception]  call ExileServer_util_log;
 		"Server will shutdown now :(" call ExileServer_util_log;
-		"extDB3" callExtension "9:SHUTDOWN";
+		//"extDB3" callExtension "9:SHUTDOWN"; Not implemented in extDB3
 	}
 	else
 	{
-		format ["extDB2: %1", _exception] call ExileServer_util_log;
+		format ["extDB3: %1", _exception] call ExileServer_util_log;
 		"Check your server rpt for errors, your mission might be stuck a loop restarting" call ExileServer_util_log;
 	};
 };

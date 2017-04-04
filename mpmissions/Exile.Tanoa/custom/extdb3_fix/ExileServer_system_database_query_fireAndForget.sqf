@@ -11,6 +11,6 @@
  
 private["_parameters","_query"];
 _parameters = _this;
-_query = [1, ExileServerDatabaseSessionId, _parameters] joinString ":";
+_query = [1, "SQL",_parameters] joinString ":";
 "extDB3" callExtension _query;
 true

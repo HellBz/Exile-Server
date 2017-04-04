@@ -2737,14 +2737,20 @@ class CfgExileCustomCode
 		ExileClient_util_fusRoDah = "myaddon\myfunction.sqf";
 	*/
 	
+	ExileServer_object_construction_database_insert 							= "custom\extdb3_fix\ExileServer_object_construction_database_insert.sqf";
+	ExileServer_object_construction_database_load 								= "custom\extdb3_fix\ExileServer_object_construction_database_load.sqf";
+	ExileServer_object_container_database_insert 								= "custom\extdb3_fix\ExileServer_object_container_database_insert.sqf";
+	ExileServer_object_container_database_update								= "custom\extdb3_fix\ExileServer_object_container_database_update.sqf";
+	ExileServer_object_player_database_insert 									= "custom\extdb3_fix\ExileServer_object_player_database_insert.sqf";
 	ExileServer_object_player_event_onMpKilled 									= "custom\extdb3_fix\ExileServer_object_player_event_onMpKilled.sqf";
 	ExileServer_system_database_connect 										= "custom\extdb3_fix\ExileServer_system_database_connect.sqf";
 	ExileServer_system_database_handleBig 										= "custom\extdb3_fix\ExileServer_system_database_handleBig.sqf";
 	ExileServer_system_database_query_fireAndForget 							= "custom\extdb3_fix\ExileServer_system_database_query_fireAndForget.sqf";
-	ExileServer_system_database_query_insertSingle 								= "custom\extdb3_fix\ExileServer_system_database_query_insertSingle.sqf";
+	ExileServer_system_database_query_insertSingle						 		= "custom\extdb3_fix\ExileServer_system_database_query_insertSingle.sqf";
 	ExileServer_system_database_query_selectFull 								= "custom\extdb3_fix\ExileServer_system_database_query_selectFull.sqf";
 	ExileServer_system_database_query_selectSingle 								= "custom\extdb3_fix\ExileServer_system_database_query_selectSingle.sqf";
 	ExileServer_system_database_query_selectSingleField 						= "custom\extdb3_fix\ExileServer_system_database_query_selectSingleField.sqf";
+	ExileServer_system_territory_database_insert 								= "custom\extdb3_fix\ExileServer_system_territory_database_insert.sqf";
 	ExileServer_system_territory_maintenance_recalculateDueDate 				= "custom\extdb3_fix\ExileServer_system_territory_maintenance_recalculateDueDate.sqf";
 	ExileServer_system_territory_network_flagStolenRequest 						= "custom\extdb3_fix\ExileServer_system_territory_network_flagStolenRequest.sqf";
 	ExileServer_system_territory_network_payFlagRansomRequest 					= "custom\extdb3_fix\ExileServer_system_territory_network_payFlagRansomRequest.sqf";
@@ -2760,7 +2766,7 @@ class CfgExileCustomCode
 	ExileServer_util_time_addTime 												= "custom\extdb3_fix\ExileServer_util_time_addTime.sqf";
 	ExileServer_util_time_currentTime 											= "custom\extdb3_fix\ExileServer_util_time_currentTime.sqf";
 	ExileServer_util_time_uptime 												= "custom\extdb3_fix\ExileServer_util_time_uptime.sqf";
-	
+
 };
 class CfgExileEnvironment
 {
@@ -2768,9 +2774,6 @@ class CfgExileEnvironment
 	{
 		class FireFlies
 		{
-			// 1 = enabled, 0 = disabled
-			enable = 0;
-
 			// At this hour fire flies begin to spawn
 			startHour = 18;
 
