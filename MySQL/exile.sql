@@ -10,11 +10,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping database structure for exile
-CREATE DATABASE IF NOT EXISTS `exile` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `exile`;
-
-
 -- Dumping structure for table exile.account
 CREATE TABLE IF NOT EXISTS `account` (
   `uid` varchar(32) NOT NULL,
@@ -29,12 +24,8 @@ CREATE TABLE IF NOT EXISTS `account` (
   `last_disconnect_at` datetime DEFAULT NULL,
   `total_connections` int(11) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`uid`),
-  KEY `clan_id` (`clan_id`),
-  CONSTRAINT `account_ibfk_1` FOREIGN KEY (`clan_id`) REFERENCES `clan` (`id`) ON DELETE SET NULL
+  KEY `clan_id` (`clan_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Data exporting was unselected.
-
 
 -- Dumping structure for table exile.clan
 CREATE TABLE IF NOT EXISTS `clan` (
@@ -43,9 +34,17 @@ CREATE TABLE IF NOT EXISTS `clan` (
   `leader_uid` varchar(32) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `leader_uid` (`leader_uid`),
-  CONSTRAINT `clan_ibfk_1` FOREIGN KEY (`leader_uid`) REFERENCES `account` (`uid`) ON DELETE CASCADE
+  KEY `leader_uid` (`leader_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- FIX Add Connection to account from clan
+ALTER TABLE account
+ADD  CONSTRAINT `account_ibfk_1` FOREIGN KEY (`clan_id`) REFERENCES `clan` (`id`) ON DELETE SET NULL;
+
+-- FIX Add Connection to clan from account
+ALTER TABLE clan
+ADD  CONSTRAINT `clan_ibfk_1` FOREIGN KEY (`leader_uid`) REFERENCES `account` (`uid`) ON DELETE CASCADE;
+
 
 -- Data exporting was unselected.
 
@@ -93,11 +92,8 @@ CREATE TABLE IF NOT EXISTS `construction` (
   PRIMARY KEY (`id`),
   KEY `account_uid` (`account_uid`),
   KEY `territory_id` (`territory_id`),
-  CONSTRAINT `construction_ibfk_1` FOREIGN KEY (`account_uid`) REFERENCES `account` (`uid`) ON DELETE CASCADE,
-  CONSTRAINT `construction_ibfk_2` FOREIGN KEY (`territory_id`) REFERENCES `territory` (`id`) ON DELETE CASCADE
+  CONSTRAINT `construction_ibfk_1` FOREIGN KEY (`account_uid`) REFERENCES `account` (`uid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Data exporting was unselected.
 
 
 -- Dumping structure for table exile.container
@@ -129,8 +125,7 @@ CREATE TABLE IF NOT EXISTS `container` (
   PRIMARY KEY (`id`),
   KEY `account_uid` (`account_uid`),
   KEY `territory_id` (`territory_id`),
-  CONSTRAINT `container_ibfk_1` FOREIGN KEY (`account_uid`) REFERENCES `account` (`uid`) ON DELETE CASCADE,
-  CONSTRAINT `container_ibfk_2` FOREIGN KEY (`territory_id`) REFERENCES `territory` (`id`) ON DELETE CASCADE
+  CONSTRAINT `container_ibfk_1` FOREIGN KEY (`account_uid`) REFERENCES `account` (`uid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Data exporting was unselected.
@@ -233,6 +228,13 @@ CREATE TABLE IF NOT EXISTS `territory` (
 
 -- Data exporting was unselected.
 
+-- FIX Add Connection to territory from construction
+ALTER TABLE construction
+ADD CONSTRAINT `construction_ibfk_2` FOREIGN KEY (`territory_id`) REFERENCES `territory` (`id`) ON DELETE CASCADE;
+
+-- FIX Add Connection to territory from container
+ALTER TABLE container
+ADD CONSTRAINT `container_ibfk_2` FOREIGN KEY (`territory_id`) REFERENCES `territory` (`id`) ON DELETE CASCADE;
 
 -- Dumping structure for table exile.vehicle
 CREATE TABLE IF NOT EXISTS `vehicle` (
