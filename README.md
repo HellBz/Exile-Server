@@ -16,14 +16,16 @@ Some files in here belong to their respective authors.
   https://www.microsoft.com/en-us/download/details.aspx?id=48145</dd>
 
   <dt>Linux Requirement</dt>
-  <dd>Deb Package System
+  <dd>###### Requirements Glibc Version 2.17+ Centos7+ / Debian 8+ / Ubuntu 14.10+
+  
+  Deb Package System
   
   `apt-get install libtbb2:i386`
 
   RPM Package System
 
   `yum install tbb.i686`
-###### Requirements Glibc Version 2.17+ Centos7+ / Debian 8+ / Ubuntu 14.10+</dd>
+</dd>
 </dl>
 
 
